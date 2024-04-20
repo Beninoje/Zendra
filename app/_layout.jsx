@@ -1,7 +1,10 @@
 import { Text, View } from 'react-native'
-import { Stack } from 'expo-router'
+import { Stack, SplashScreen } from 'expo-router'
 import { useFonts } from 'expo-font';
+import { useEffect } from 'react';
 
+//! this will prevent the splash screen from auto hiding before asset loading
+SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   //!passing in the object of all the used Fonts
   const [fontsLoaded, error] = useFonts({
@@ -15,6 +18,22 @@ const RootLayout = () => {
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   }); 
+  //! useEffect allows us to perform actions while the page/screen is loading
+  useEffect(()=>{
+    if(error)
+    {
+      throw error;
+    }
+    if(fontsLoaded)
+    {
+      SplashScreen.hideAsync();
+    }
+  },[fontsLoaded,error]);
+
+  if(!fontsLoaded && !error)
+  {
+    return null;
+  }
   return (
     <Stack>
         <Stack.Screen name="index" options={{ headerShown: false}}/>
