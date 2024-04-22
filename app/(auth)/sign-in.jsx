@@ -61,7 +61,7 @@ const SignIn = () => {
            isLoading={isSubmitting}
           />
           <View className="flex items-center justify-center w-full mt-7">
-            <Text className="text-white">Don't have an account? {''}
+            <Text className="text-gray-100">Don't have an account? {''}
               <Link href="/sign-up" className="text-[17px] font-psemibold text-secondary-200">Sign Up</Link>
             </Text>
             
